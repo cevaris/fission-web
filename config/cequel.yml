@@ -1,0 +1,12 @@
+development:
+  host: '127.0.0.1:9160'
+  keyspace: fission_development
+
+production:
+  hosts:
+    - 'localhost:9160'
+  keyspace: fission_production
+  thrift:
+    retries: 10
+    timeout: 15
+    connect_timeout: 15

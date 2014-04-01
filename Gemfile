@@ -47,7 +47,7 @@ gem 'kafka-rb'
 gem 'poseidon'
 gem 'resque', require: 'resque/server'
 gem 'weighted_randomizer'
-
+gem 'cequel'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
