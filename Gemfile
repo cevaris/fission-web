@@ -50,6 +50,8 @@ gem 'kafka-rb'
 gem 'resque', require: 'resque/server'
 gem 'weighted_randomizer'
 gem 'connection_pool'
+gem 'dashing-rails'
+gem 'puma'
 
 
 # Use ActiveModel has_secure_password
