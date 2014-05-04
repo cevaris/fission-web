@@ -93,7 +93,7 @@
 :javascript
   var data;
   //get json data, everything that uses this data must be in this function
-  d3.json("http://localhost:3000/experiments/#{@experiment.id}.json", function(error, json){
+  d3.json("http://#{request.host_with_port}/experiments/#{@experiment.id}.json", function(error, json){
     if (error){
       console.log(error);
     } 
