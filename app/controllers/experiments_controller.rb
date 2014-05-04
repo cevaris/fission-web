@@ -36,7 +36,13 @@ class ExperimentsController < InheritedResources::Base
     end
 
     @counts_json = @counts_json.to_json 
-    Rails.logger.info @counts_json
+    Rails.logger.info 
+
+     respond_to do |format|
+      format.html{ render show: @experiment }
+      format.json{ render json: @counts_json}
+    end
+
   end
 
   def complete

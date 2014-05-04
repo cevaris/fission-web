@@ -17,7 +17,6 @@ Fission::Application.routes.draw do
   get 'apps/:app_id/events/:year/:month/:day/:hour' => 'events#show', as: :show_events
   resources :events
 
-
   resources :experiments do
     member do
       get 'complete'
