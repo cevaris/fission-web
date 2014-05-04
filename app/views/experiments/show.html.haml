@@ -1,3 +1,32 @@
+:css
+  body{
+    background: #ecf0f1;
+  }
+  .chart{
+    width:100%;
+  }
+  .chart div {
+    font: 10px sans-serif;
+    background-color: #2c3e50;
+    text-align: right;
+    padding: 3px;
+    margin: 3px;
+    color: white;
+    font-size:1.8em;
+  }
+  .chart div:hover{
+    background-color: #3498db;
+  }
+  #color{
+    font-weight: 900;
+  }
+  @media screen and (max-width: 800px){
+    .chart div{
+      font-size:1em;
+      vertical-align: text-bottom;
+    }
+  }
+%div.chart
 #experiments
   %div
     %span
@@ -58,7 +87,62 @@
               %td
                 N/A
 
+%script{type: "text/javascript", src: "http://d3js.org/d3.v3.min.js"}
 
+:javascript
+  var data;
+  //get json data, everything that uses this data must be in this function
+  d3.json(#{@counts_json}, function(error, json){
+    if (error){
+      console.log(error);
+    } 
+    else {
+      console.log(json);
+    }
+    //set our var to the data
+    data=json;
+    //set the scales to match our data
+    var x = d3.scale.linear()
+      .domain([0, function(d){
+        return d3.max(d.Total)
+      }])
+      .range([0, function(d){
+        return d3.max(d.Total)
+      }]);
+      //start drawing graph
+      var chart = d3.select(".chart")
+    chart.selectAll("div")
+      //bind data
+        .data(data)
+        .enter().append("div")
+        .style("width", function(d) { 
+          //responsive bars to match width of box
+          return ((d.Complete/d.Total)*100) + "%";
+        })
+        .text(function(d) {
+          //write out text in box
+          return d.abtest + ": " + d.Complete + "/" + d.Total;
+        })
+        //style the text
+        //.style("height", "23px")
+        //on hover return the percent of clicks     
+        .on("mouseover", function(d){
+          d3.select(this)
+            .text(function(d){
+                //be sure to round it so there aren't crazy fractions
+                var percent = d.Complete/d.Total;
+                round = Math.round(percent*100);
+                return d.abtest + ": " + round + "%";
+              })
+      })
+        .on("mouseout", function(d){
+          //on not hover return to original text
+          d3.select(this)
+            .text(function(d){
+              return d.abtest + ": " + d.Complete + "/" + d.Total;
+            })
+        })
+  });// end JSON function
 
 
 

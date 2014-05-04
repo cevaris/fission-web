@@ -26,6 +26,17 @@ class ExperimentsController < InheritedResources::Base
 
   def show
     @experiment = Experiment.find params[:id]
+
+    @counts_json = []
+    @experiment.variations.each do |variation|
+      # Rails.logger.info variation.participants
+      # Rails.logger.info variation.converted
+      # Rails.logger.info variation.measure
+      @counts_json << {abtest: variation.name,'Complete' => variation.converted,'Total'=>variation.participants}
+    end
+
+    @counts_json = @counts_json.to_json 
+    Rails.logger.info @counts_json
   end
 
   def complete
