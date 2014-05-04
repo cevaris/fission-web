@@ -20,8 +20,8 @@ namespace :split do
 
       var = exp.variations.sample
 
-      samples = [false, false, false, true]
-      samples = [false, false, true, true] if var.id == winner_var.id
+      samples = [false, false, false, true, false]
+      samples = [false, false, true, true, false] if var.id == winner_var.id
 
       record[:variation_id]  = var.id
 
